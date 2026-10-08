@@ -20,4 +20,35 @@ BEGIN
   -- La fecha fin se calcula sumandole a la fecha de inicio 30 dias
 END$$
 
+DELIMITER ;
+
+INSERT INTO suscripciones (id_usuario, id_membresia, fecha_inicio, fecha_fin)
+VALUES ((SELECT MIN(id_usuario)   FROM usuarios),
+        (SELECT MIN(id_membresia) FROM membresias),
+        NULL,
+        NULL);
+
+INSERT INTO suscripciones (id_usuario, id_membresia, fecha_inicio, fecha_fin)
+VALUES ((SELECT MIN(id_usuario)   FROM usuarios),
+        (SELECT MIN(id_membresia) FROM membresias),
+        NULL,
+        '2026-10-10');
+
+INSERT INTO suscripciones (id_usuario, id_membresia, fecha_inicio, fecha_fin)
+VALUES ((SELECT MIN(id_usuario)   FROM usuarios),
+        (SELECT MIN(id_membresia) FROM membresias),
+        '2026-10-20',
+        '2030-01-01');
+
+-- Verificación: las tres últimas suscripciones insertadas
+SELECT id_suscripcion, fecha_inicio, fecha_fin,
+       DATEDIFF(fecha_fin, fecha_inicio) AS dias_de_diferencia
+FROM suscripciones
+ORDER BY id_suscripcion DESC
+LIMIT 3;
+
+-- Limpieza
+DELETE FROM suscripciones
+ORDER BY id_suscripcion DESC
+LIMIT 3;
 
