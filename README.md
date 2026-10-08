@@ -28,4 +28,5 @@ inicio y fin, una sin fecha de inicio pero con fecha de fin, y una con ambos val
 Los 3 mostraron funcionar sin problema.
 
 Se uso (SELECT MIN(id_usuario)   FROM usuarios), y (SELECT MIN(id_membresia) FROM membresias)
-para evitar errores, y se borran las inserciones al final.
+para evitar insertar datos incompatibles y generar errores.
+Se borran las inserciones al final.
